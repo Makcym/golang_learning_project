@@ -9,10 +9,12 @@ Learn more:
 * For first run `make build`
 * Run `make` or `docker-compose up -d`
 * Open http://localhost:8881/v1/user
+* Swagger is available here http://localhost:8881/swagger
 
 ## How to get started without Docker
 * Install Go: https://go.dev/doc/install
 * Install bee : `go get github.com/beego/bee/v2`
+* Run: `go install && go mod vendor`
 * Run api `bee run main.go`
 * Open http://localhost:8881/v1/user
 
