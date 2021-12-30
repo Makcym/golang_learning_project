@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  golang-api:
+    container_name: golang-api
+    restart: unless-stopped
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8881:8881"
+    volumes:
+      - .:/go/src/golang_learning_project
+      - ./vendor:/go/src
+    links:
+      - golang-mysql
+    networks:
+      - golang_shared
+
+  golang-mysql:
+    image: mysql:5.7.33
+    container_name: golang-mysql
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_DATABASE: golang_mysql
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_PASSWORD: 12345
+      MYSQL_USER: golang_mysql
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "33062:3306"
+#    volumes:
+#      - ./mysql/data:/var/lib/mysql
+    networks:
+      - golang_shared
+
+networks:
+  golang_shared:
+    external: true
